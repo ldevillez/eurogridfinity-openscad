@@ -59,11 +59,12 @@ module half_unit_hole_shape(manufacturing=0){
 }
 
 module half_unit_hole_magnet(){
-  translate([2.5,2.5,0])
+  translate([2.5,2.5,5])
   cylinder(h=10,r=r_magnet,center=true);
 }
 
 module grid(nx, ny, l) {
+  translate([-nx*l/2 - l/2, -ny*l/2 - l/2, 0])
     for (i = [1:nx]){
       for (j = [1:ny]){
         translate([i*l,j*l,0])

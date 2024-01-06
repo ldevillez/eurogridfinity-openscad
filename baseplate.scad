@@ -84,30 +84,30 @@ prep_for_laser(manufacturing, prepare_for_laser) difference(){
 
       //_Main grid
       if(half_grid){
-        translate([trans_x_unit, trans_y_unit, -0.1])
+        translate([offsetx, offsety, -0.1])
           grid(gx*2,gy*2,lbp_half_unit)
           half_unit_hole_shape(manufacturing);
       } else {
-        translate([-(gx+1)*lbp_half_unit + offsetx, -(gy+1)*lbp_half_unit + offsety,0])
+        translate([offsetx,  offsety,0])
           grid(gx,gy,lbp_unit)
           unit_hole_shape(manufacturing);
       }
 
       // Additional rows
       if(half_row_x){
-      translate([(gx-0.5)*lbp_half_unit + offsetx , -(gy+0.5)*lbp_half_unit + offsety ,-0.1])
+      translate([offsetx- sign(fitx) * (gx+0.5) * lbp_half_unit, offsety, -0.1])
           grid(1,gy*2,lbp_half_unit)
           half_unit_hole_shape(manufacturing);
       }
       if(half_row_y){
-      translate([trans_x_unit, trans_y_unit, -0.1])
+      translate([offsetx, -sign(fity) * (gy+0.5) * lbp_half_unit + offsety, -0.1])
           grid(gy*2,1,lbp_half_unit)
           half_unit_hole_shape(manufacturing);
       }
 
       // Additional corner
       if(half_row_x && half_row_y){
-      translate([(gx+0.5)*lbp_half_unit + offsetx, (gy+0.5)*lbp_half_unit + offsety ,-0.1])
+      translate([-sign(fitx) * (gx+0.5)*lbp_half_unit + offsetx, -sign(fity) * (gy+0.5)*lbp_half_unit + offsety ,-0.1])
           half_unit_hole_shape(manufacturing);
 
       }
@@ -126,22 +126,22 @@ prep_for_laser(manufacturing, prepare_for_laser) difference(){
   if(manufacturing == 0 && style_baseplate != 0){
     // Magnet hole
     if(style_baseplate == 2){
-      translate([-(gx+1)*lbp_half_unit + offsetx, -(gy+1)*lbp_half_unit + offsety,-h_magnet])
+      translate([offsetx, offsety,-h_magnet])
         grid(gx,gy,lbp_unit)
         unit_hole_magnet();
 
       if(half_row_x){
-      translate([(gx-0.5)*lbp_half_unit + offsetx , -(gy+0.5)*lbp_half_unit + offsety ,-h_magnet])
+      translate([offsetx- sign(fitx) * (gx+0.5) * lbp_half_unit, offsety, -h_magnet])
           grid(1,gy*2,lbp_half_unit)
           half_unit_hole_magnet();
       }
       if(half_row_y){
-      translate([trans_x_unit, trans_y_unit, -h_magnet])
+      translate([offsetx, -sign(fity) * (gy+0.5) * lbp_half_unit + offsety, -h_magnet])
           grid(gy*2,1,lbp_half_unit)
           half_unit_hole_magnet();
       }
       if(half_row_x && half_row_y){
-      translate([(gx+0.5)*lbp_half_unit + offsetx, (gy+0.5)*lbp_half_unit + offsety ,-h_magnet])
+      translate([-sign(fitx) * (gx+0.5)*lbp_half_unit + offsetx, -sign(fity) * (gy+0.5)*lbp_half_unit + offsety ,-h_magnet])
           half_unit_hole_magnet();
       }
     }

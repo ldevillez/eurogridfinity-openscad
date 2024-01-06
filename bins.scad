@@ -34,6 +34,10 @@ dx_inside = dx - h_lip_1 - h_lip_3;
 dy_inside = dy - h_lip_1 - h_lip_3;
 th = gridz * lbi_h + lbi_lip;
 
+// Dividers
+dx_comp = (dx_inside - (compx - 1) * t_comp) / compx;
+dy_comp = (dy_inside - (compy - 1) * t_comp) / compy;
+
 // is half_grid
 hgrid = half_grid || (gridx * 10) % 10 > 0.1 || (gridy * 10) % 10 > 0.1;
 
@@ -52,7 +56,7 @@ union(){
   difference(){
     union(){
       // Feets
-      translate([-l_bp/2-gridx * lbp_half_unit,-l_bp/2-gridy * lbp_half_unit,0])
+      translate([0, 0, 0])
       grid(gx,gy,l_bp)
         bin_feet(l_bi);
 
@@ -66,21 +70,28 @@ union(){
 
     // Empty bin
     translate([0,0,h_feet_bin+0.19])
-    rounded_rectangle(dx_inside,dy_inside,th,r_bin_inside);
+    grid(compx, 1, dx_comp + t_comp)
+    grid(1, compy, dy_comp + t_comp)
+    rounded_rectangle(dx_comp,dy_comp,th,r_bin_inside);
   }
-  // X separator
-  if(compx > 1){
-    for (i = [1:compx-1]){
-      translate([-t_comp/2 -dx/2 + i * dx /compx, -dy/2,h_feet_bin])
-      cube([t_comp, dy, th - h_feet_bin - h_lip]);
-    }
-  }
+  /*// X separator*/
+  /*if(compx > 1){*/
+    /*for (i = [1:compx-1]){*/
+      /*translate([-t_comp/2 -dx/2 + i * dx /compx, -dy/2,h_feet_bin])*/
+      /*cube([t_comp, dy, th - h_feet_bin - h_lip]);*/
+    /*}*/
+  /*}*/
 
-  // Y separator
-  if(compy > 1){
-    for (i = [1:compy-1]){
-      translate([-dx/2, -t_comp/2 - dy/2 + i * dy / compy,h_feet_bin])
-      cube([dx,t_comp,th - h_feet_bin - h_lip]);
-    }
-  }
+  /*// Y separator*/
+  /*if(compy > 1){*/
+    /*for (i = [1:compy-1]){*/
+      /*translate([-dx/2, -t_comp/2 - dy/2 + i * dy / compy,h_feet_bin])*/
+      /*cube([dx,t_comp,th - h_feet_bin - h_lip]);*/
+    /*}*/
+  /*}*/
 }
+
+    /*translate([0, 0,h_feet_bin+0.19])*/
+    /*grid(compx, 1, dx_comp + t_comp)*/
+    /*grid(1, compy, dy_comp + t_comp)*/
+    /*rounded_rectangle(dx_comp,dy_comp,th,r_bin_inside);*/
