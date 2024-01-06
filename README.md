@@ -11,6 +11,7 @@ Open to feedback (first project with OpenSCAD ).
 - Laser cut baseplate (with dxf prep file)
 - Adjust baseplate to drawer
 - Add extra row and column of half-unit in baseplate
+- Bin division
 
 # License
 [Gridfinity](https://www.youtube.com/watch?v=ra_9zU-mnl8) by [Zack Freedman](https://www.youtube.com/c/ZackFreedman/about)

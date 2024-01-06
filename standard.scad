@@ -5,6 +5,8 @@ lbi_half_unit = lbi_unit/2;
 lbi_h = 7;
 lbi_lip = 4.4;
 
+t_comp = 1;
+
 // BASEPLATE
 lbp_unit = 42;
 lbp_half_unit = lbp_unit/2;
@@ -30,6 +32,7 @@ h_feet_bin = h_base_1 + h_base_2 +h_base_3;
 h_lip_1 = 0.7;
 h_lip_2 = 1.8;
 h_lip_3 = 1.9;
+h_lip = h_lip_1 + h_lip_2 + h_lip_3;
 
 // thickness of solid baseplate
 bp_h_bot = 3;

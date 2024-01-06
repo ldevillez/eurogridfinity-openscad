@@ -93,7 +93,7 @@ module bin_feet(length=lbi_unit){
     hull(){
       translate([0,0,h_bin_1+h_bin_2])
       rounded_square(length-h_bin_3, 0.1,r_bin-h_bin_3/2);
-      translate([0,0,h_bin_1+h_bin_2+h_bin_3])
+      translate([0,0,h_feet_bin])
       rounded_square(length, 0.1,r_bin);
     }
   }
