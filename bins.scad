@@ -21,6 +21,8 @@ gridz = 5;
 compx = 2;
 // Number of compartiments along y-axis
 compy = 2;
+// Remove the fillet
+flat_bottom = true;
 
 /* [Half-grid] */
 // Use half grid instead of regular grid
@@ -57,12 +59,12 @@ union(){
     union(){
       // Feets
       translate([0, 0, 0])
-      grid(gx,gy,l_bp)
+        grid(gx,gy,l_bp)
         bin_feet(l_bi);
 
       // Mainbody
       translate([0,0,h_feet_bin])
-      rounded_rectangle(dx,dy,th-h_feet_bin,r_bin);
+        rounded_rectangle(dx,dy,th-h_feet_bin,r_bin);
     }
     // Remove material to make lip
     translate([0,0,th-h_lip_1-h_lip_2-h_lip_3])
@@ -72,26 +74,10 @@ union(){
     translate([0,0,h_feet_bin+0.19])
     grid(compx, 1, dx_comp + t_comp)
     grid(1, compy, dy_comp + t_comp)
+    if(flat_bottom){
     rounded_rectangle(dx_comp,dy_comp,th,r_bin_inside);
+    } else {
+      fillet_rectangle(dx_comp,dy_comp,th,r_bin_inside);
+    }
   }
-  /*// X separator*/
-  /*if(compx > 1){*/
-    /*for (i = [1:compx-1]){*/
-      /*translate([-t_comp/2 -dx/2 + i * dx /compx, -dy/2,h_feet_bin])*/
-      /*cube([t_comp, dy, th - h_feet_bin - h_lip]);*/
-    /*}*/
-  /*}*/
-
-  /*// Y separator*/
-  /*if(compy > 1){*/
-    /*for (i = [1:compy-1]){*/
-      /*translate([-dx/2, -t_comp/2 - dy/2 + i * dy / compy,h_feet_bin])*/
-      /*cube([dx,t_comp,th - h_feet_bin - h_lip]);*/
-    /*}*/
-  /*}*/
 }
-
-    /*translate([0, 0,h_feet_bin+0.19])*/
-    /*grid(compx, 1, dx_comp + t_comp)*/
-    /*grid(1, compy, dy_comp + t_comp)*/
-    /*rounded_rectangle(dx_comp,dy_comp,th,r_bin_inside);*/

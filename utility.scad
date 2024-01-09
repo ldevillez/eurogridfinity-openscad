@@ -1,5 +1,22 @@
 include <standard.scad>
 
+module fillet_rectangle(length, width, height, fillet){
+  union(){
+    translate([0,0, fillet])
+    rounded_rectangle(length,width,height,fillet);
+    translate([0, 0, fillet])
+      hull(){
+      translate([-(length/2 - fillet), -(width/2 - fillet), 0])
+      sphere(fillet);
+      translate([-(length/2 - fillet), (width/2 - fillet), 0])
+      sphere(fillet);
+      translate([(length/2 - fillet), -(width/2 - fillet), 0])
+      sphere(fillet);
+      translate([(length/2 - fillet), (width/2 - fillet), 0])
+      sphere(fillet);
+    }
+  }
+}
 
 module rounded_rectangle(length, width, height, radius){
   linear_extrude(height)
