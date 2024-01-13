@@ -20,6 +20,10 @@ manufacturing = 0; // [0: 3D_print, 1:Lasercut]
 // How to make the base plate
 prepare_for_laser = false;
 
+// offset to apply to enlarge holes in the baseplate
+offset_laser = 0.5;
+
+
 /* [Fit to Drawer] */
 // minimum length of baseplate along x (leave zero to ignore, will automatically fill area if gridx is zero)
 dix = 0;
@@ -86,29 +90,29 @@ prep_for_laser(manufacturing, prepare_for_laser) difference(){
       if(half_grid){
         translate([offsetx, offsety, -0.1])
           grid(gx*2,gy*2,lbp_half_unit)
-          half_unit_hole_shape(manufacturing);
+          half_unit_hole_shape(manufacturing,offset_laser);
       } else {
         translate([offsetx,  offsety,0])
           grid(gx,gy,lbp_unit)
-          unit_hole_shape(manufacturing);
+          unit_hole_shape(manufacturing,offset_laser);
       }
 
       // Additional rows
       if(half_row_x){
       translate([offsetx- sign(fitx) * (gx+0.5) * lbp_half_unit, offsety, -0.1])
           grid(1,gy*2,lbp_half_unit)
-          half_unit_hole_shape(manufacturing);
+          half_unit_hole_shape(manufacturing,offset_laser);
       }
       if(half_row_y){
       translate([offsetx, -sign(fity) * (gy+0.5) * lbp_half_unit + offsety, -0.1])
           grid(gy*2,1,lbp_half_unit)
-          half_unit_hole_shape(manufacturing);
+          half_unit_hole_shape(manufacturing,offset_laser);
       }
 
       // Additional corner
       if(half_row_x && half_row_y){
       translate([-sign(fitx) * (gx+0.5)*lbp_half_unit + offsetx, -sign(fity) * (gy+0.5)*lbp_half_unit + offsety ,-0.1])
-          half_unit_hole_shape(manufacturing);
+          half_unit_hole_shape(manufacturing,offset_laser);
 
       }
 

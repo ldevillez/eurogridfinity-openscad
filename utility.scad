@@ -35,7 +35,7 @@ module rounded_square(length, height, radius){
 }
 
 
-module hole_shape(manufacturing=0,length){
+module hole_shape(manufacturing=0,length=20,offset_laser=0){
   if(manufacturing == 0){
     union(){
       hull(){
@@ -55,12 +55,12 @@ module hole_shape(manufacturing=0,length){
     }
   } else {
     translate([0,0,-0.1])
-    rounded_square(length - h_base_3*2, 10, r_base-h_base_3/2);
+    rounded_square(length - h_base_3*2 + offset_laser, 10, r_base-h_base_3/2);
   }
 }
 
-module unit_hole_shape(manufacturing=0){
-  hole_shape(manufacturing,lbp_unit);
+module unit_hole_shape(manufacturing=0,offset_laser=0){
+  hole_shape(manufacturing,lbp_unit,offset_laser);
 }
 
 module unit_hole_magnet(){
@@ -71,8 +71,8 @@ module unit_hole_magnet(){
 }
 
 
-module half_unit_hole_shape(manufacturing=0){
-  hole_shape(manufacturing,lbp_half_unit);
+module half_unit_hole_shape(manufacturing=0,offset_laser=0){
+  hole_shape(manufacturing,lbp_half_unit, offset_laser);
 }
 
 module half_unit_hole_magnet(){
