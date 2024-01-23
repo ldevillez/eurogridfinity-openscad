@@ -1,18 +1,58 @@
 include <standard.scad>
 
 module fillet_rectangle(length, width, height, fillet){
+  l = length/2 - fillet;
+  w = width/2 - fillet;
   union(){
     translate([0,0, fillet])
     rounded_rectangle(length,width,height,fillet);
     translate([0, 0, fillet])
       hull(){
-      translate([-(length/2 - fillet), -(width/2 - fillet), 0])
+      // Bottom
+      translate([-l, -w, 0])
       sphere(fillet);
-      translate([-(length/2 - fillet), (width/2 - fillet), 0])
+      translate([-l, w, 0])
       sphere(fillet);
-      translate([(length/2 - fillet), -(width/2 - fillet), 0])
+      translate([ l, -w, 0])
       sphere(fillet);
-      translate([(length/2 - fillet), (width/2 - fillet), 0])
+      translate([ l, w, 0])
+      sphere(fillet);
+    }
+  }
+}
+
+module fillet_rectangle_tabs(length, width, height, l_tab, fillet){
+  l = length/2 - fillet;
+  w = width/2 - fillet;
+  h = height ;
+  union(){
+    translate([length_tab/2,0,fillet])
+    fillet_rectangle(length-length_tab, width, height+0.1, fillet);
+    translate([0, 0, fillet])
+      hull(){
+      translate([-l, -w, 0])
+      sphere(fillet);
+      translate([-l, w, 0])
+      sphere(fillet);
+      translate([ l, -w, 0])
+      sphere(fillet);
+      translate([ l, w, 0])
+      sphere(fillet);
+
+      // small top
+      translate([l, w, h])
+      sphere(fillet);
+      translate([l, -w, h])
+      sphere(fillet);
+
+      translate([-l + length_tab,  w, h-offset_tab])
+      sphere(fillet);
+      translate([-l + length_tab, -w, h-offset_tab])
+      sphere(fillet);
+
+      translate([-l,  w, h - length_tab])
+      sphere(fillet);
+      translate([-l, -w, h - length_tab])
       sphere(fillet);
     }
   }
@@ -40,7 +80,7 @@ module hole_shape(manufacturing=0,length=20,offset_laser=0){
     union(){
       hull(){
       translate([0,0,h_base_1 + h_base_2 + h_base_3])
-      rounded_square(length, 2, r_base);
+      rounded_square(length, 0.2, r_base);
       translate([0,0,h_base_1+h_base_2])
       rounded_square(length-2*h_base_3, h_base_3, r_base - h_base_3/2);
       }
@@ -140,4 +180,17 @@ module bin_lip(lx,ly){
       rounded_rectangle(lx,ly, 0.1,r_bin);
     }
   }
+}
+
+module tab_bin(l_tab, lenght){
+  p = [
+    [0,0],
+    [-offset_tab,0],
+    [-offset_tab,l_tab+offset_tab+0.1],
+    [l_tab, l_tab + offset_tab+0.1],
+    [l_tab, l_tab],
+  ];
+  linear_extrude(lenght,center=true)
+  polygon(p);
+
 }

@@ -23,6 +23,11 @@ compx = 2;
 compy = 2;
 // Remove the fillet
 flat_bottom = true;
+// Tabs
+tabs = true;
+// Tab length
+length_tab=9;
+
 
 /* [Half-grid] */
 // Use half grid instead of regular grid
@@ -30,10 +35,12 @@ half_grid = true;
 
 // ===== IMPLEMENTATION ===== //
 
+// total x
 dx = gridx * lbp_unit - 0.5;
+// total y
 dy = gridy * lbp_unit - 0.5;
-dx_inside = dx - h_lip_1 - h_lip_3;
-dy_inside = dy - h_lip_1 - h_lip_3;
+dx_inside = dx - 2 * (h_lip_1 + h_lip_3);
+dy_inside = dy - 2 * (h_lip_1 + h_lip_3);
 th = gridz * lbi_h + lbi_lip;
 
 // Dividers
@@ -67,17 +74,36 @@ union(){
         rounded_rectangle(dx,dy,th-h_feet_bin,r_bin);
     }
     // Remove material to make lip
-    translate([0,0,th-h_lip_1-h_lip_2-h_lip_3])
+    translate([0,0,th-h_lip])
       bin_lip(dx,dy);
 
+    // h inside the bin
+    h_inside = th-h_lip-h_feet_bin - t_bot_bin;
+
     // Empty bin
-    translate([0,0,h_feet_bin+0.19])
+    translate([0,0,h_feet_bin+ t_bot_bin])
     grid(compx, 1, dx_comp + t_comp)
     grid(1, compy, dy_comp + t_comp)
+    // With a flat bottom
     if(flat_bottom){
-    rounded_rectangle(dx_comp,dy_comp,th,r_bin_inside);
+      difference(){
+        rounded_rectangle(dx_comp,dy_comp,h_inside + 1,r_bin_inside);
+        // Adding tabs
+        if(tabs){
+          translate([-dx_comp/2,0,h_inside-length_tab-offset_tab])
+          rotate([90,0,0])
+          tab_bin(length_tab, dy_comp);
+        }
+
+      }
+      // Or a round bottom
     } else {
-      fillet_rectangle(dx_comp,dy_comp,th,r_bin_inside);
+      if(tabs){
+        // TODO: better tabs (do some geometry)
+        fillet_rectangle_tabs(dx_comp,dy_comp,h_inside - 2*r_bin_inside, length_tab,r_bin_inside);
+      } else {
+        fillet_rectangle(dx_comp,dy_comp,h_inside + 1,r_bin_inside);
+      }
     }
   }
 }

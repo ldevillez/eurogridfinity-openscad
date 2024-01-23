@@ -5,7 +5,11 @@ lbi_half_unit = lbi_unit/2;
 lbi_h = 7;
 lbi_lip = 4.4;
 
+// thickness of compartiment
 t_comp = 1;
+
+// bottom thickness of a bin
+t_bot_bin = 1;
 
 // BASEPLATE
 lbp_unit = 42;
@@ -19,10 +23,15 @@ h_magnet = 2;
 r_bin_inside = 2.45;
 
 
+// Tabs
+offset_tab = 2;
+
+
 // different height for the base and bin
 h_base_1 = 0.7;
 h_base_2 = 1.8;
 h_base_3 = 2.15;
+h_base = h_base_1 + h_base_2 + h_base_3;
 
 h_bin_1 = 0.8;
 h_bin_2 = 1.8;
