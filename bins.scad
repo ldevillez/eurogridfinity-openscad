@@ -35,13 +35,16 @@ half_grid = true;
 
 // ===== IMPLEMENTATION ===== //
 
+
 // total x
 dx = gridx * lbp_unit - 0.5;
 // total y
 dy = gridy * lbp_unit - 0.5;
-dx_inside = dx - 2 * (h_lip_1 + h_lip_3);
-dy_inside = dy - 2 * (h_lip_1 + h_lip_3);
+dx_inside = dx - (h_lip_1 + h_lip_3);
+dy_inside = dy - (h_lip_1 + h_lip_3);
 th = gridz * lbi_h + lbi_lip;
+// h inside the bin
+h_inside = th-h_lip-h_feet_bin - t_bot_bin;
 
 // Dividers
 dx_comp = (dx_inside - (compx - 1) * t_comp) / compx;
@@ -60,6 +63,8 @@ l_bp = hgrid ? lbp_half_unit : lbp_unit;
 // Need an offset of 0.5 to avoid overshooting of the bins. Grids of the bins and baseplate is not the same
 l_bi = hgrid ? lbi_half_unit - 0.5 : lbi_unit;
 
+difference(){
+
 
 union(){
   difference(){
@@ -77,8 +82,6 @@ union(){
     translate([0,0,th-h_lip])
       bin_lip(dx,dy);
 
-    // h inside the bin
-    h_inside = th-h_lip-h_feet_bin - t_bot_bin;
 
     // Empty bin
     translate([0,0,h_feet_bin+ t_bot_bin])
@@ -106,4 +109,6 @@ union(){
       }
     }
   }
+}
+
 }

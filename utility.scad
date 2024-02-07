@@ -45,14 +45,14 @@ module fillet_rectangle_tabs(length, width, height, l_tab, fillet){
       translate([l, -w, h])
       sphere(fillet);
 
-      translate([-l + length_tab,  w, h-offset_tab])
+      translate([-l + length_tab,  w, h-offset_tab+fillet])
       sphere(fillet);
-      translate([-l + length_tab, -w, h-offset_tab])
+      translate([-l + length_tab, -w, h-offset_tab+fillet])
       sphere(fillet);
 
-      translate([-l,  w, h - length_tab])
+      translate([-l,  w, h - length_tab+fillet])
       sphere(fillet);
-      translate([-l, -w, h - length_tab])
+      translate([-l, -w, h - length_tab+fillet])
       sphere(fillet);
     }
   }
@@ -82,20 +82,19 @@ module hole_shape(manufacturing=0,length=20,offset_laser=0){
       translate([0,0,h_base_1 + h_base_2 + h_base_3])
       rounded_square(length, 0.2, r_base);
       translate([0,0,h_base_1+h_base_2])
-      rounded_square(length-2*h_base_3, h_base_3, r_base - h_base_3/2);
+      rounded_square(length-2*h_base_3, h_base_3, r_base - h_base_3);
       }
       hull(){
       translate([0,0,h_base_1])
-      rounded_square(length-2*h_base_3, h_base_2+0.1, r_base - h_base_3/2);
-      rounded_square(length-2*h_base_3-2*h_base_1, h_base_1, r_base - h_base_3/2-h_base_1/2);
+      rounded_square(length-2*h_base_3, h_base_2+0.1, r_base - h_base_3);
+      rounded_square(length-2*h_base_3-2*h_base_1, h_base_1, r_base - h_base_3-h_base_1);
       }
       translate([0,0,-0.1])
-      rounded_square(length-2*h_base_3-2*h_base_1, 0.2, r_base - h_base_3/2-h_base_1/2);
-
+      rounded_square(length-2*h_base_3-2*h_base_1, 0.2, r_base - h_base_3-h_base_1);
     }
   } else {
     translate([0,0,-0.1])
-    rounded_square(length - h_base_3*2 + offset_laser, 10, r_base-h_base_3/2);
+    rounded_square(length - 2*h_base_3 + offset_laser, 10, r_base-h_base_3/2);
   }
 }
 
@@ -144,13 +143,13 @@ module prep_for_laser(manufacturing = 0, prep=false, offsetx=0, offsety=0){
 module bin_feet(length=lbi_unit){
   union(){
     hull(){
-      rounded_square(length-h_bin_1-h_bin_3, h_bin_1,r_bin-h_bin_1/2-h_bin_3/2);
+      rounded_square(length-2*h_bin_1-2*h_bin_3, h_bin_1,r_bin-h_bin_1/2-h_bin_3/2);
       translate([0,0,h_bin_1])
-      rounded_square(length-h_bin_3, h_bin_2+0.1,r_bin-h_bin_3/2);
+      rounded_square(length-2*h_bin_3, h_bin_2+0.1,r_bin-h_bin_3/2);
     }
     hull(){
       translate([0,0,h_bin_1+h_bin_2])
-      rounded_square(length-h_bin_3, 0.1,r_bin-h_bin_3/2);
+      rounded_square(length-2*h_bin_3, 0.1,r_bin-h_bin_3/2);
       translate([0,0,h_feet_bin])
       rounded_square(length, 0.1,r_bin);
     }

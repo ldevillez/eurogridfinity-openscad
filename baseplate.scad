@@ -21,7 +21,7 @@ manufacturing = 0; // [0: 3D_print, 1:Lasercut]
 prepare_for_laser = false;
 
 // offset to apply to enlarge holes in the baseplate
-offset_laser = 0.5;
+offset_laser = 0;
 
 
 /* [Fit to Drawer] */
@@ -105,7 +105,7 @@ prep_for_laser(manufacturing, prepare_for_laser) difference(){
       }
       if(half_row_y){
       translate([offsetx, -sign(fity) * (gy+0.5) * lbp_half_unit + offsety, -0.1])
-          grid(gy*2,1,lbp_half_unit)
+          grid(gx*2,1,lbp_half_unit)
           half_unit_hole_shape(manufacturing,offset_laser);
       }
 
@@ -179,7 +179,7 @@ if(style_baseplate != 0 && manufacturing == 1){
         // Additional row holes
         if(half_row_y){
         translate([trans_x_unit, (gy-0.5)*lbp_half_unit + offsety ,-0.1])
-            grid(gy*2,1,lbp_half_unit)
+            grid(gx*2,1,lbp_half_unit)
             half_unit_hole_magnet();
         }
 
