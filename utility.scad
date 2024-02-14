@@ -94,7 +94,7 @@ module hole_shape(manufacturing=0,length=20,offset_laser=0){
     }
   } else {
     translate([0,0,-0.1])
-    rounded_square(length - 2*h_base_3 + offset_laser, 10, r_base-h_base_3/2);
+    rounded_square(length - 2*h_base_3 + offset_laser, 10, r_base-h_base_3);
   }
 }
 

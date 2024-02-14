@@ -4,6 +4,14 @@
 
 A remix of [gridfinity](https://www.youtube.com/watch?v=ra_9zU-mnl8) in OpenSCAD. Inspired by [gridfinity-rebuilt-openscad](https://github.com/kennetek/gridfinity-rebuilt-openscad). Purpose behind the project is to create half-units elements as regular unit is too coarse to fit into [eurobox](https://www.auer-packaging.com/be/en/Euro-containers-solid/EG-6417-HG.html).
 
+<picture>
+  <img alt="Baseplate" src="animation/baseplate.gif">
+</picture>
+<picture>
+  <img alt="Bin" src="animation/bin.gif">
+</picture>
+
+
 Open to feedback (first project with OpenSCAD ).
 
 # Features
