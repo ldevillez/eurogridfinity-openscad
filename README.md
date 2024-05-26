@@ -21,7 +21,7 @@ Open to feedback (first project with OpenSCAD ).
 - Add extra row and column of half-unit in baseplate
 - Bin division
 - Add Tabs to bins
-- Choice between flat and round bottom
+- Choice between flat, round bottom and empty feet
 
 # License
 [Gridfinity](https://www.youtube.com/watch?v=ra_9zU-mnl8) by [Zack Freedman](https://www.youtube.com/c/ZackFreedman/about)

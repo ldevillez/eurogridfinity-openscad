@@ -21,8 +21,10 @@ gridz = 5;
 compx = 2;
 // Number of compartiments along y-axis
 compy = 2;
-// Remove the fillet
-flat_bottom = true;
+
+// Bottom type
+bottom_type = 0; // [0: Flat, 1: Rounded bottom, 2:Empty feet]
+
 // Tabs
 tabs = true;
 // Tab length
@@ -88,7 +90,7 @@ union(){
     grid(compx, 1, dx_comp + t_comp)
     grid(1, compy, dy_comp + t_comp)
     // With a flat bottom
-    if(flat_bottom){
+    if(bottom_type == 0 || bottom_type == 2){
       difference(){
         rounded_rectangle(dx_comp,dy_comp,h_inside + 1,r_bin_inside);
         // Adding tabs
@@ -107,6 +109,26 @@ union(){
       } else {
         fillet_rectangle(dx_comp,dy_comp,h_inside + 1,r_bin_inside);
       }
+    }
+  // Empty feet
+    if(bottom_type == 2){
+      translate([0, 0, t_comp])
+        difference(){
+          grid(gx,gy,l_bp)
+          bin_feet(l_bi-t_comp);
+
+          // Remove separators
+          if(compy > 1){
+              grid(1, compy - 1, dy_comp + t_comp)
+              translate([-dx/2,-t_comp/2,-0.5])
+              cube([dx, t_comp, h_feet_bin+1]);
+          }
+          if (compx > 1){
+              grid(compx -1, 1, dx_comp + t_comp)
+              translate([-t_comp/2,-dy/2,-0.5])
+              cube([t_comp,dy, h_feet_bin+1]);
+          }
+        }
     }
   }
 }
